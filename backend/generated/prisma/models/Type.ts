@@ -200,11 +200,11 @@ export type TypeOrderByWithRelationInput = {
 
 export type TypeWhereUniqueInput = Prisma.AtLeast<{
   id?: number
+  name?: string
   AND?: Prisma.TypeWhereInput | Prisma.TypeWhereInput[]
   OR?: Prisma.TypeWhereInput[]
   NOT?: Prisma.TypeWhereInput | Prisma.TypeWhereInput[]
-  name?: Prisma.StringFilter<"Type"> | string
-}, "id">
+}, "id" | "name">
 
 export type TypeOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
