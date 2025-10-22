@@ -27,13 +27,25 @@ model MenuItem {
   price  Decimal @db.Decimal(10, 2)
   typeId Int
 
-  type Type @relation(fields: [typeId], references: [id])
+  type      Type        @relation(fields: [typeId], references: [id])
+  OrderItem OrderItem[]
 }
 
-
 model Order {
-  id Int @id @default(autoincrement())
-  date DateTime @default(now())
-  total Decimal @db.Decimal(10,2)
+  id    Int      @id @default(autoincrement())
+  date  DateTime @default(now())
+  total Decimal  @db.Decimal(10, 2)
 
+  OrderItem OrderItem[]
+}
+
+model OrderItem {
+  id       Int     @id @default(autoincrement())
+  orderId  Int
+  menuId   Int
+  quantity Int
+  price    Decimal @db.Decimal(10, 2)
+
+  order Order    @relation(fields: [orderId], references: [id])
+  menu  MenuItem @relation(fields: [menuId], references: [id])
 }
