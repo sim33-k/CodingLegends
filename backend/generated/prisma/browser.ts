@@ -21,3 +21,8 @@ export * from './enums';
  * 
  */
 export type Type = Prisma.TypeModel
+/**
+ * Model MenuItem
+ * 
+ */
+export type MenuItem = Prisma.MenuItemModel

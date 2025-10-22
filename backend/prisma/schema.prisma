@@ -5,11 +5,27 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url = env("DATABASE_URL")
+  url      = env("DATABASE_URL")
 }
+
+// The types of dishes are shown here, incase we want to add more varieties other than the 3 main types, it can be inserted here without creating a brand new table.
+// Main Dish, Side Dish, Dessert
 
 model Type {
-  id Int @id @default(autoincrement())
-  name String @db.VarChar(20) @unique
+  id   Int    @id @default(autoincrement())
+  name String @unique @db.VarChar(20)
+
+  MenuItem MenuItem[]
 }
 
+// The actual menu items
+// Rice, Rotty, Noodles...
+
+model MenuItem {
+  id     Int     @id @default(autoincrement())
+  name   String  @db.VarChar(30)
+  price  Decimal @db.Decimal(10, 2)
+  typeId Int
+
+  type Type @relation(fields: [typeId], references: [id])
+}

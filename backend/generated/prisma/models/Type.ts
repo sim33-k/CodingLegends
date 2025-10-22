@@ -191,11 +191,13 @@ export type TypeWhereInput = {
   NOT?: Prisma.TypeWhereInput | Prisma.TypeWhereInput[]
   id?: Prisma.IntFilter<"Type"> | number
   name?: Prisma.StringFilter<"Type"> | string
+  MenuItem?: Prisma.MenuItemListRelationFilter
 }
 
 export type TypeOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  MenuItem?: Prisma.MenuItemOrderByRelationAggregateInput
 }
 
 export type TypeWhereUniqueInput = Prisma.AtLeast<{
@@ -204,6 +206,7 @@ export type TypeWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.TypeWhereInput | Prisma.TypeWhereInput[]
   OR?: Prisma.TypeWhereInput[]
   NOT?: Prisma.TypeWhereInput | Prisma.TypeWhereInput[]
+  MenuItem?: Prisma.MenuItemListRelationFilter
 }, "id" | "name">
 
 export type TypeOrderByWithAggregationInput = {
@@ -226,20 +229,24 @@ export type TypeScalarWhereWithAggregatesInput = {
 
 export type TypeCreateInput = {
   name: string
+  MenuItem?: Prisma.MenuItemCreateNestedManyWithoutTypeInput
 }
 
 export type TypeUncheckedCreateInput = {
   id?: number
   name: string
+  MenuItem?: Prisma.MenuItemUncheckedCreateNestedManyWithoutTypeInput
 }
 
 export type TypeUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  MenuItem?: Prisma.MenuItemUpdateManyWithoutTypeNestedInput
 }
 
 export type TypeUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  MenuItem?: Prisma.MenuItemUncheckedUpdateManyWithoutTypeNestedInput
 }
 
 export type TypeCreateManyInput = {
@@ -279,6 +286,11 @@ export type TypeSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
 }
 
+export type TypeScalarRelationFilter = {
+  is?: Prisma.TypeWhereInput
+  isNot?: Prisma.TypeWhereInput
+}
+
 export type StringFieldUpdateOperationsInput = {
   set?: string
 }
@@ -291,11 +303,90 @@ export type IntFieldUpdateOperationsInput = {
   divide?: number
 }
 
+export type TypeCreateNestedOneWithoutMenuItemInput = {
+  create?: Prisma.XOR<Prisma.TypeCreateWithoutMenuItemInput, Prisma.TypeUncheckedCreateWithoutMenuItemInput>
+  connectOrCreate?: Prisma.TypeCreateOrConnectWithoutMenuItemInput
+  connect?: Prisma.TypeWhereUniqueInput
+}
+
+export type TypeUpdateOneRequiredWithoutMenuItemNestedInput = {
+  create?: Prisma.XOR<Prisma.TypeCreateWithoutMenuItemInput, Prisma.TypeUncheckedCreateWithoutMenuItemInput>
+  connectOrCreate?: Prisma.TypeCreateOrConnectWithoutMenuItemInput
+  upsert?: Prisma.TypeUpsertWithoutMenuItemInput
+  connect?: Prisma.TypeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TypeUpdateToOneWithWhereWithoutMenuItemInput, Prisma.TypeUpdateWithoutMenuItemInput>, Prisma.TypeUncheckedUpdateWithoutMenuItemInput>
+}
+
+export type TypeCreateWithoutMenuItemInput = {
+  name: string
+}
+
+export type TypeUncheckedCreateWithoutMenuItemInput = {
+  id?: number
+  name: string
+}
+
+export type TypeCreateOrConnectWithoutMenuItemInput = {
+  where: Prisma.TypeWhereUniqueInput
+  create: Prisma.XOR<Prisma.TypeCreateWithoutMenuItemInput, Prisma.TypeUncheckedCreateWithoutMenuItemInput>
+}
+
+export type TypeUpsertWithoutMenuItemInput = {
+  update: Prisma.XOR<Prisma.TypeUpdateWithoutMenuItemInput, Prisma.TypeUncheckedUpdateWithoutMenuItemInput>
+  create: Prisma.XOR<Prisma.TypeCreateWithoutMenuItemInput, Prisma.TypeUncheckedCreateWithoutMenuItemInput>
+  where?: Prisma.TypeWhereInput
+}
+
+export type TypeUpdateToOneWithWhereWithoutMenuItemInput = {
+  where?: Prisma.TypeWhereInput
+  data: Prisma.XOR<Prisma.TypeUpdateWithoutMenuItemInput, Prisma.TypeUncheckedUpdateWithoutMenuItemInput>
+}
+
+export type TypeUpdateWithoutMenuItemInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type TypeUncheckedUpdateWithoutMenuItemInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+
+/**
+ * Count Type TypeCountOutputType
+ */
+
+export type TypeCountOutputType = {
+  MenuItem: number
+}
+
+export type TypeCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  MenuItem?: boolean | TypeCountOutputTypeCountMenuItemArgs
+}
+
+/**
+ * TypeCountOutputType without action
+ */
+export type TypeCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TypeCountOutputType
+   */
+  select?: Prisma.TypeCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * TypeCountOutputType without action
+ */
+export type TypeCountOutputTypeCountMenuItemArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MenuItemWhereInput
+}
 
 
 export type TypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  MenuItem?: boolean | Prisma.Type$MenuItemArgs<ExtArgs>
+  _count?: boolean | Prisma.TypeCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["type"]>
 
 export type TypeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -314,10 +405,18 @@ export type TypeSelectScalar = {
 }
 
 export type TypeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name", ExtArgs["result"]["type"]>
+export type TypeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  MenuItem?: boolean | Prisma.Type$MenuItemArgs<ExtArgs>
+  _count?: boolean | Prisma.TypeCountOutputTypeDefaultArgs<ExtArgs>
+}
+export type TypeIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type TypeIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $TypePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Type"
-  objects: {}
+  objects: {
+    MenuItem: Prisma.$MenuItemPayload<ExtArgs>[]
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     name: string
@@ -715,6 +814,7 @@ readonly fields: TypeFieldRefs;
  */
 export interface Prisma__TypeClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  MenuItem<T extends Prisma.Type$MenuItemArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Type$MenuItemArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MenuItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -763,6 +863,10 @@ export type TypeFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Internal
    */
   omit?: Prisma.TypeOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TypeInclude<ExtArgs> | null
+  /**
    * Filter, which Type to fetch.
    */
   where: Prisma.TypeWhereUniqueInput
@@ -781,6 +885,10 @@ export type TypeFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.I
    */
   omit?: Prisma.TypeOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TypeInclude<ExtArgs> | null
+  /**
    * Filter, which Type to fetch.
    */
   where: Prisma.TypeWhereUniqueInput
@@ -798,6 +906,10 @@ export type TypeFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the Type
    */
   omit?: Prisma.TypeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TypeInclude<ExtArgs> | null
   /**
    * Filter, which Type to fetch.
    */
@@ -847,6 +959,10 @@ export type TypeFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.In
    */
   omit?: Prisma.TypeOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TypeInclude<ExtArgs> | null
+  /**
    * Filter, which Type to fetch.
    */
   where?: Prisma.TypeWhereInput
@@ -895,6 +1011,10 @@ export type TypeFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    */
   omit?: Prisma.TypeOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TypeInclude<ExtArgs> | null
+  /**
    * Filter, which Types to fetch.
    */
   where?: Prisma.TypeWhereInput
@@ -937,6 +1057,10 @@ export type TypeCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    * Omit specific fields from the Type
    */
   omit?: Prisma.TypeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TypeInclude<ExtArgs> | null
   /**
    * The data needed to create a Type.
    */
@@ -985,6 +1109,10 @@ export type TypeUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    * Omit specific fields from the Type
    */
   omit?: Prisma.TypeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TypeInclude<ExtArgs> | null
   /**
    * The data needed to update a Type.
    */
@@ -1052,6 +1180,10 @@ export type TypeUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    */
   omit?: Prisma.TypeOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TypeInclude<ExtArgs> | null
+  /**
    * The filter to search for the Type to update in case it exists.
    */
   where: Prisma.TypeWhereUniqueInput
@@ -1078,6 +1210,10 @@ export type TypeDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    */
   omit?: Prisma.TypeOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TypeInclude<ExtArgs> | null
+  /**
    * Filter which Type to delete.
    */
   where: Prisma.TypeWhereUniqueInput
@@ -1098,6 +1234,30 @@ export type TypeDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
+ * Type.MenuItem
+ */
+export type Type$MenuItemArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MenuItem
+   */
+  select?: Prisma.MenuItemSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MenuItem
+   */
+  omit?: Prisma.MenuItemOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MenuItemInclude<ExtArgs> | null
+  where?: Prisma.MenuItemWhereInput
+  orderBy?: Prisma.MenuItemOrderByWithRelationInput | Prisma.MenuItemOrderByWithRelationInput[]
+  cursor?: Prisma.MenuItemWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MenuItemScalarFieldEnum | Prisma.MenuItemScalarFieldEnum[]
+}
+
+/**
  * Type without action
  */
 export type TypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1109,4 +1269,8 @@ export type TypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    * Omit specific fields from the Type
    */
   omit?: Prisma.TypeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TypeInclude<ExtArgs> | null
 }
