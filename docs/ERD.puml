@@ -1,20 +1,34 @@
-@startuml Buhari Hotel Database
+@startuml Buhari Hotel ERD
 
-' question doesnt have a reference of customers
-' also it doesnt state if a customer can order multiple main dishes.
+' tables
+entity Type {
+  * id: INTEGER <<PK>>
+  * name: VARCHAR(10)
+}
 
+entity MenuItem {
+  * id: INTEGER <<PK>>
+  * name: VARCHAR(100)
+  * price: DECIMAL(10,2)
+  * type_id: INTEGER <<FK>>
+}
 
-' table
-entity MainDish
-entity SideDish
-entity Dessert
-entity Order
-entity OrderItem
+entity Order {
+  * id: INTEGER <<PK>>
+  * date: TIMESTAMP
+  * total: DECIMAL(10,2)
+}
 
-' relationship
-Order ||--o{ OrderItem
-OrderItem }o--o| MainDish
-OrderItem }o--o| SideDish
-OrderItem }o--o| Dessert
+entity OrderItem {
+  * id: INTEGER <<PK>>
+  * order_id: INTEGER <<FK>>
+  * menu_id: INTEGER <<FK>>
+  * quantity: INTEGER
+  * price: DECIMAL(10,2)
+}
+
+Type ||--o{ MenuItem : "has"
+Order ||--o{ OrderItem : "has"
+MenuItem ||--o{ OrderItem : "has"
 
 @enduml
