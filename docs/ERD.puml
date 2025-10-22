@@ -11,4 +11,10 @@ entity Dessert
 entity Order
 entity OrderItem
 
+' relationship
+Order ||--o{ OrderItem
+OrderItem }o--o| MainDish
+OrderItem }o--o| SideDish
+OrderItem }o--o| Dessert
+
 @enduml
