@@ -1,0 +1,14 @@
+@startuml Buhari Hotel Database
+
+' question doesnt have a reference of customers
+' also it doesnt state if a customer can order multiple main dishes.
+
+
+' table
+entity MainDish
+entity SideDish
+entity Dessert
+entity Order
+entity OrderItem
+
+@enduml
