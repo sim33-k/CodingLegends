@@ -2,9 +2,9 @@ import {database} from "../src/lib/Database";
 
 class Seed {
 
-    private mainDishTypeId: number;
-    private sideDishTypeId: number;
-    private dessertTypeId: number;
+    private mainDishTypeId!: number;
+    private sideDishTypeId!: number;
+    private dessertTypeId!: number;
 
     public async types() {
         await database.type.createMany({
