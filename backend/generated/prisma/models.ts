@@ -9,4 +9,5 @@
  */
 export type * from './models/Type'
 export type * from './models/MenuItem'
+export type * from './models/Order'
 export type * from './commonInputTypes'

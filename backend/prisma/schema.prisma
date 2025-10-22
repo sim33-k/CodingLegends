@@ -29,3 +29,11 @@ model MenuItem {
 
   type Type @relation(fields: [typeId], references: [id])
 }
+
+
+model Order {
+  id Int @id @default(autoincrement())
+  date DateTime @default(now())
+  total Decimal @db.Decimal(10,2)
+
+}

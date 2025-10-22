@@ -26,3 +26,8 @@ export type Type = Prisma.TypeModel
  * 
  */
 export type MenuItem = Prisma.MenuItemModel
+/**
+ * Model Order
+ * 
+ */
+export type Order = Prisma.OrderModel
