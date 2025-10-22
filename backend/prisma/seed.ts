@@ -1,6 +1,11 @@
 import {database} from "../src/lib/Database";
 
 class Seed {
+
+    private mainDishTypeId: number;
+    private sideDishTypeId: number;
+    private dessertTypeId: number;
+
     public async types() {
         await database.type.createMany({
             data: [
@@ -18,22 +23,26 @@ class Seed {
         const sideDishType = await database.type.findUnique({ where: { name: "Side Dish" } });
         const dessertType = await database.type.findUnique({ where: { name: "Dessert" } });
 
+        this.mainDishTypeId = mainDishType!.id;
+        this.sideDishTypeId = sideDishType!.id;
+        this.dessertTypeId = dessertType!.id;
+
         await database.menuItem.createMany({
             data: [
                 // main dishes
-                { name: "Rice", price: 100, typeId: mainDishType.id },
-                { name: "Rotty", price: 20, typeId: mainDishType.id },
-                { name: "Noodles", price: 150, typeId: mainDishType.id },
+                { name: "Rice", price: 100, typeId: this.mainDishTypeId },
+                { name: "Rotty", price: 20, typeId: this.mainDishTypeId },
+                { name: "Noodles", price: 150, typeId: this.mainDishTypeId },
 
                 // side dishes
-                { name: "Wadai", price: 45, typeId: sideDishType.id },
-                { name: "Dhal Curry", price: 75, typeId: sideDishType.id },
-                { name: "Fish Curry", price: 120, typeId: sideDishType.id },
+                { name: "Wadai", price: 45, typeId: this.sideDishTypeId },
+                { name: "Dhal Curry", price: 75, typeId: this.sideDishTypeId },
+                { name: "Fish Curry", price: 120, typeId: this.sideDishTypeId },
 
                 // desserts
-                { name: "Watalappam", price: 40, typeId: dessertType.id },
-                { name: "Jelly", price: 20, typeId: dessertType.id },
-                { name: "Pudding", price: 25, typeId: dessertType.id },
+                { name: "Watalappam", price: 40, typeId: this.dessertTypeId },
+                { name: "Jelly", price: 20, typeId: this.dessertTypeId },
+                { name: "Pudding", price: 25, typeId: this.dessertTypeId },
 
             ]
         });
