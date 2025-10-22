@@ -7,8 +7,16 @@
     "strict": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "baseUrl": "src",
+    "paths": {
+      "generated/prisma": ["../generated/prisma"]
+    }
   },
-  "include": ["server.ts", "src/**/*"],
+  "include": [
+    "server.ts",
+    "src/**/*",
+    "generated/prisma"
+  ],
   "exclude": ["node_modules", "dist"]
 }
