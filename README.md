@@ -1,2 +1,2 @@
 # CodingLegends
-Personal project for coding legends
+Question 1 CL
