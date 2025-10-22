@@ -35,6 +35,10 @@ Thumbs.db
 tmp/
 temp/
 
+# Generated files
+backend/generated/
+backend/src/generated/
+
 # Optional: if using Vite
 frontend/.vite/
 
