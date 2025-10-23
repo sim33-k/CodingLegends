@@ -49,7 +49,7 @@ export class PrismaReportRepository implements IReportRepository {
                         name: "Main Dish"
                     }
                 }
-            }
+            },
             // after grouping we need the sum
             _sum: {
                 quantity: true,
