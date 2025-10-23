@@ -3,7 +3,7 @@ import { BaseService } from "./BaseService";
 import { MenuItem, Order } from "generated/prisma";
 import { IOrderRepository } from "repositories/interfaces/IOrderRepository";
 
-class OrderService extends BaseService<CreateOrderDto, Order> {
+export class OrderService extends BaseService<CreateOrderDto, Order> {
     constructor(orderRepository: IOrderRepository) {
         super(orderRepository);
     }
@@ -64,7 +64,7 @@ class OrderService extends BaseService<CreateOrderDto, Order> {
     }
 
 
-    public async create(dto: CreateOrderDto): Promise<Order> {
+    public async createOrder(dto: CreateOrderDto): Promise<Order> {
         // first we need to check the business logic
         await this.checkOrderLogic(dto);
         return this.repository.create(dto);
