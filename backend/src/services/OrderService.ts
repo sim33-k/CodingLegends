@@ -68,6 +68,7 @@ export class OrderService extends BaseService<CreateOrderDto, Order> {
 
     public async createOrder(dto: CreateOrderDto): Promise<Order> {
         // first we need to check the business logic
+        // if there are no errors, the order can be made
         await this.checkOrderLogic(dto);
         return this.repository.createOrder(dto);
     }
