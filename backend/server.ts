@@ -1,39 +1,15 @@
-import express, {Application, Request, Response, NextFunction} from "express";
-import dotenv from "dotenv";
+import express from "express";
+import OrderRoutes from "./src/routes/OrderRoutes";
 
-dotenv.config();
+const app = express();
+app.use(express.json());
 
-class Server {
-    public app: Application;
-    private port: number;
+// Removed the classy approach because it felt like an overkill
+app.use("/orders", OrderRoutes);
 
-    constructor(port: number = 3000) {
-        this.app = express();
-        this.port = Number(process.env.PORT) || port;
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log("Server is running on port " + PORT));
 
-        this.initMiddleware();
-        this.initRoutes();
-    }
-
-    private initMiddleware(): void {
-        this.app.use(express.json());
-    }
-
-    private initRoutes(): void {
-        this.app.get("/", (req: Request, res: Response) => {
-            res.send("Simaak was here!")
-        })
-    }
-
-    public listen(): void {
-        this.app.listen(this.port, () => {
-            console.log("SERVER IS RUNNING FINE :)");
-        })
-    }
-}
-
-const server = new Server();
-server.listen();
 
 
 
