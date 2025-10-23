@@ -4,7 +4,7 @@ import { Order } from "generated/prisma";
 // i have added this repository pattern because I had an issue previously with prisma client + supabase
 // so if I face the same issue again, i can easily swap it out with supabase client
 
-interface IOrderRepository {
+export interface IOrderRepository {
     createOrder(order: CreateOrderDto): Promise<Order>;
     getOrderById(orderId: number): Promise<Order | null>;
     getOrders(): Promise<Order[]>;
