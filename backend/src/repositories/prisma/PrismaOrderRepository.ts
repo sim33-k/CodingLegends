@@ -4,7 +4,7 @@ import { MenuItem, Order } from "generated/prisma";
 import { CreateOrderDto, CreateOrderItemDto } from "dtos/order/CreateOrderDto";
 
 
-class PrismaOrderRepository implements IOrderRepository {
+export class PrismaOrderRepository implements IOrderRepository {
 
     public async createOrder(order: CreateOrderDto): Promise<Order> {
         // since the total is stored in the order table, it is set to zero
