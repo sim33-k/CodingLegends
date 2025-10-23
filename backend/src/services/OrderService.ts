@@ -55,6 +55,11 @@ export class OrderService extends BaseService<CreateOrderDto, Order> {
             throw new Error("Need at least one main dish");
         }
 
+        // question states only a main dish is allowed
+        if(mainDishCount > 1) {
+            throw new Error("Only 1 dish allowed");
+        }
+
         if(sideDishCount < 1) {
             throw new Error("need at least one side dish");
         }
