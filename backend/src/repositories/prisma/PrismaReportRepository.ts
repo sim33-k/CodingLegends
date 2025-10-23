@@ -68,7 +68,30 @@ export class PrismaReportRepository implements IReportRepository {
 
     async getFamousSideDish(): Promise<any> {
 
-        // same as the main dish, just the 
+        // same as the main dish, just the the type name changes
+
+                const result = await database.orderItem.groupBy({
+            by: ['menuId'],
+            // must include the relation
+            where: {
+                menu: {
+                    type: {
+                        name: "Side Dish"
+                    }
+                }
+            },
+            // after grouping we need the sum
+            _sum: {
+                quantity: true,
+            },
+            orderBy: {
+                _sum: {quantity: 'desc'},
+
+            },
+            take: 1,
+        })
+
+        return result;
 
     }
 
