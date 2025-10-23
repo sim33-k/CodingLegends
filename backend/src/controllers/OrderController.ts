@@ -20,11 +20,15 @@ export class OrderController extends BaseController {
         const { error, value } = CreateOrderDto.validate(request.body);
 
         if (error) {
-            return this.sendError(response, "Validation issue", 400);
+            return this.sendError(response, error.details[0].message, 400);
         }
 
-        const createdOrder = await this.orderService.createOrder(value);
-        this.sendSuccess(response, createdOrder, 201);
+        try {
+            const createdOrder = await this.orderService.createOrder(value);
+            this.sendSuccess(response, createdOrder, 201);
+        } catch (error) {
+            this.sendError(response, (error as Error).message, 400);
+        }
     }
 
 }
