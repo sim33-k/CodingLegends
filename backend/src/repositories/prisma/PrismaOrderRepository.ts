@@ -52,6 +52,23 @@ class PrismaOrderRepository implements IOrderRepository {
         return createdOrder;
 
     }
+
+    public async getOrders(): Promise<Order[]> {
+        const orders = await database.order.findMany({
+            include: {
+                OrderItem: {
+                    include: {
+                        menu: {
+                            include: {
+                                type: true
+                            }
+                        }
+                    }
+                }
+            }
+        })
+        return orders;
+    }
 }
 
 export default PrismaOrderRepository
