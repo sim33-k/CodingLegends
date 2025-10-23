@@ -1,7 +1,7 @@
-import { database } from "lib/Database";
+import { database } from "../../lib/Database";
 import { IOrderRepository } from "repositories/interfaces/IOrderRepository";
 import { MenuItem, Order } from "generated/prisma";
-import { CreateOrderDto, CreateOrderItemDto } from "dtos/order/CreateOrderDto";
+import { CreateOrderDto, CreateOrderItemDto } from "../../dtos/order/CreateOrderDto";
 
 
 export class PrismaOrderRepository implements IOrderRepository {

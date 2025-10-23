@@ -1,6 +1,6 @@
 
 import { Request, Response } from "express";
-import { CreateOrderDto } from "dtos/order/CreateOrderDto";
+import { CreateOrderDto } from "../dtos/order/CreateOrderDto";
 import { BaseController } from "./BaseController";
 import { OrderService } from "services/OrderService";
 
