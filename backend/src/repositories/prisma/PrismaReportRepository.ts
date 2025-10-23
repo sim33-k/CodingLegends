@@ -32,6 +32,29 @@ export class PrismaReportRepository implements IReportRepository {
     }
 
     async getFamousMainDish(): Promise<any> {
+        // SELECT m.name, SUM(oi.quantity) AS total_quantity FROM OrderItem oi
+        // INNER JOIN  MenuItem m ON oi.menuId = m.id
+        // INNER JOIN Type t ON t.id = m.typeId
+        // WHERE t.name = "Main Dish"
+        // GROUP BY m.name
+        // ORDER BY SUM(oi.quantity) DESC
+        // LIMIT 1
+
+        const result = await database.orderItem.groupBy({
+            by: ['menuId'],
+            // after grouping we need the sum
+            _sum: {
+                quantity: true,
+            },
+            orderBy: {
+                _sum: {quantity: 'desc'},
+
+            },
+            take: 1,
+        })
+
+        return result;
+
 
     }
 
