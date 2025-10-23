@@ -70,7 +70,7 @@ export class PrismaReportRepository implements IReportRepository {
 
         // same as the main dish, just the the type name changes
 
-                const result = await database.orderItem.groupBy({
+        const result = await database.orderItem.groupBy({
             by: ['menuId'],
             // must include the relation
             where: {
@@ -96,6 +96,36 @@ export class PrismaReportRepository implements IReportRepository {
     }
 
     async getMostPopularSideDishForEachMainDish(): Promise<any> {
+
+    // so we need to get the main - side dish combinations first
+    // select m.name, s.name, COUNT(DISTINCT ois) AS combinations
+    // from OrderItem oim
+    // INNER JOIN MenuItem mdd ON oim.menuId = mdd.id
+    // inner join Type tm on mdd.typeId = tm.id
+    // // now we self join the side dish id
+    // INNER JOIN OrderItem ois ON ois.orderId = oim.orderId // matching the same order
+    // INNER JOIN MenuItem mds ON ois.menuId = mds.id
+    // INNER JOIN Type ts ON mds.typeId = ts.id
+
+    // where td.name = "Main Dish" AND ts.name ="Side dish" AND mdd.id <> mds.id
+    // group by mdd.name, mds.name
+    // ORDER BY combinations DESC
+    // LIMIT 1
+
+    // im not sure if prisma can handle this, so ill be using normal sql for this!
+    // we can have 2 popular dishes, so im going to show all and filter it in the frontend
+
+        const result = await database.$queryRaw`
+            SELECT mdd.name AS main_dish, mds.name AS side_dish, COUNT(DISTINCT ois.id) AS combinations FROM "OrderItem" oim
+            INNER JOIN "MenuItem" mdd ON oim."menuId" = mdd.id
+            INNER JOIN "Type" tm ON mdd."typeId" = tm.id
+            INNER JOIN "OrderItem" ois ON ois."orderId" = oim."orderId"
+            INNER JOIN "MenuItem" mds ON ois."menuId" = mds.id
+            INNER JOIN "Type" ts ON mds."typeId" = ts.id
+            WHERE tm.name = 'Main Dish' AND ts.name = 'Side Dish' AND mdd.id <> mds.id
+            GROUP BY mdd.name, mds.name
+            ORDER BY combinations DESC`;
+            // LIMIT 1;`;
 
     }
 }
