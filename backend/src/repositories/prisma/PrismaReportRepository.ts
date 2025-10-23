@@ -42,6 +42,14 @@ export class PrismaReportRepository implements IReportRepository {
 
         const result = await database.orderItem.groupBy({
             by: ['menuId'],
+            // must include the relation
+            where: {
+                menu: {
+                    type: {
+                        name: "Main Dish"
+                    }
+                }
+            }
             // after grouping we need the sum
             _sum: {
                 quantity: true,
@@ -59,6 +67,8 @@ export class PrismaReportRepository implements IReportRepository {
     }
 
     async getFamousSideDish(): Promise<any> {
+
+        // same as the main dish, just the 
 
     }
 
