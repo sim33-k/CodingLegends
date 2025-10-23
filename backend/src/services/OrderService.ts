@@ -1,7 +1,7 @@
-import { CreateOrderDto } from "dtos/order/CreateOrderDto";
+import { CreateOrderDto } from "../dtos/order/CreateOrderDto";
 import { BaseService } from "./BaseService";
-import { MenuItem, Order } from "generated/prisma";
-import { IOrderRepository } from "repositories/interfaces/IOrderRepository";
+import { MenuItem, Order } from "../../generated/prisma";
+import { IOrderRepository } from "../repositories/interfaces/IOrderRepository";
 
 export class OrderService extends BaseService<CreateOrderDto, Order> {
     constructor(orderRepository: IOrderRepository) {
@@ -48,18 +48,15 @@ export class OrderService extends BaseService<CreateOrderDto, Order> {
                 dessertCount += item.quantity;
             }
 
-            // we need 1 main dish
-            if(mainDishCount != 1) {
-                throw new Error("Need one main dish");
-            }
+        }
 
-            // we need at least 1 side dish
-            if(sideDishCount < 1) {
-                throw new Error("need at least one side dish");
-            }
+        // Check after processing all items
+        if(mainDishCount < 1) {
+            throw new Error("Need at least one main dish");
+        }
 
-
-
+        if(sideDishCount < 1) {
+            throw new Error("need at least one side dish");
         }
     }
 
@@ -67,7 +64,7 @@ export class OrderService extends BaseService<CreateOrderDto, Order> {
     public async createOrder(dto: CreateOrderDto): Promise<Order> {
         // first we need to check the business logic
         await this.checkOrderLogic(dto);
-        return this.repository.create(dto);
+        return this.repository.createOrder(dto);
     }
 
 }
