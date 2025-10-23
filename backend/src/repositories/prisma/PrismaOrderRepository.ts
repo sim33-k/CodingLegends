@@ -69,6 +69,26 @@ class PrismaOrderRepository implements IOrderRepository {
         })
         return orders;
     }
+
+    public async getOrderById(orderId: number): Promise<Order | null>{
+        const order = await database.order.findUnique({
+            where: {
+                id: orderId
+            },
+            include: {
+                OrderItem: {
+                    include: {
+                        menu: {
+                            include: {
+                                type: true
+                            }
+                        }
+                    }
+                }
+            }
+        })
+        return order;
+    }
 }
 
 export default PrismaOrderRepository
