@@ -11,9 +11,10 @@ export class CreateOrderItemDto{
         this.quantity = quantity;
     }
 
+
     public static schema = Joi.object({
-        menuId: Joi.number().required(),
-        quantity: Joi.number().required()
+        menuId: Joi.number().integer().positive().required(),
+        quantity: Joi.number().integer().min(1).required()
     });
 
     public static validate(data: any) {
@@ -32,7 +33,7 @@ export class CreateOrderDto{
     }
 
     public static schema = Joi.object({
-        items: Joi.array().items(CreateOrderItemDto.schema).required()
+        items: Joi.array().items(CreateOrderItemDto.schema).required().min(1)
     });
 
     public static validate(data: any) {
