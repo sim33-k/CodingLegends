@@ -37,5 +37,32 @@ export class ReportController extends BaseController {
 
     }
 
+    public async getFamousMainDish(request: Request, response: Response): Promise<void> {
+        try {
+            const famousMainDish = await this.reportService.getFamousMainDish();
+            this.sendSuccess(response, famousMainDish, 200);
+        } catch (error) {
+            return this.sendError(response, 'error', 500);
+        }
+    }
+
+    public async getFamousSideDish(request: Request, response: Response): Promise<void> {
+        try {
+            const famousSideDish = await this.reportService.getFamousSideDish();
+            this.sendSuccess(response, famousSideDish, 200);
+        } catch (error) {
+            return this.sendError(response, 'error', 500);
+        }
+    }
+
+    public async getMostPopularSideDishForEachMainDish(request: Request, response: Response): Promise<void> {
+        try {
+            const result = await this.reportService.getMostPopularSideDishForEachMainDish();
+            this.sendSuccess(response, result, 200);
+        } catch (error) {
+            return this.sendError(response, 'error', 500);
+        }
+    }
+
 
 }
