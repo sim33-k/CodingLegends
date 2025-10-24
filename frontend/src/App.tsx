@@ -1,18 +1,6 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// src/App.tsx
+import Page from "./app/dashboard/page";
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <h1 className="text-3xl font-bold underline text-red-900">
-        Hello world!
-      </h1>
-    </>
-  )
+export default function App() {
+  return <Page />;
 }
-
-export default App
