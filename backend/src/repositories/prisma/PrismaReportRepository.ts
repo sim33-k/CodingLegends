@@ -112,22 +112,105 @@ export class PrismaReportRepository implements IReportRepository {
     // ORDER BY combinations DESC
     // LIMIT 1
 
-    // im not sure if prisma can handle this, so ill be using normal sql for this!
-    // we can have 2 popular dishes, so im going to show all and filter it in the frontend
+    
+    // we first get all the main dishes
+    const mainDishes = await database.menuItem.findMany({
+        where: {
+            type: {
+                name: "Main Dish"
+            }
+        }
 
-        const result = await database.$queryRaw`
-            SELECT mdd.name AS main_dish, mds.name AS side_dish, COUNT(DISTINCT ois.id) AS combinations FROM "OrderItem" oim
-            INNER JOIN "MenuItem" mdd ON oim."menuId" = mdd.id
-            INNER JOIN "Type" tm ON mdd."typeId" = tm.id
-            INNER JOIN "OrderItem" ois ON ois."orderId" = oim."orderId"
-            INNER JOIN "MenuItem" mds ON ois."menuId" = mds.id
-            INNER JOIN "Type" ts ON mds."typeId" = ts.id
-            WHERE tm.name = 'Main Dish' AND ts.name = 'Side Dish' AND mdd.id <> mds.id
-            GROUP BY mdd.name, mds.name
-            ORDER BY combinations DESC`;
-            // LIMIT 1;`;
+    })
+
+    // [{id: 1, name: "Rice", price: 100, typeId: 1} ...]
+    // for all the main dishes we have, we need to find orders with side dishes
+
+    const mainDishOrders = [];
+
+    for(const mainDish of mainDishes) {
+        const orders = await database.orderItem.findMany({
+            where: {
+                menuId: mainDish.id
+            },
+            include: {
+                menu: true
+            }
+        })
+
+        mainDishOrders.push({mainDish: mainDish,orders: orders})
 
     }
+
+    // now we iterate through all the main dish orders and find the side dishes
+
+    const sideDishOrdersWithMainDishes = [];
+
+    for(const mainDishOrder of mainDishOrders) {
+        const sideDishOrders = await database.orderItem.findMany({
+            where: {
+                orderId: {
+                    in: mainDishOrder.orders.map(order => order.orderId)
+                },
+                menu: {
+                    type: {
+                        name: "Side Dish"
+                    }
+                }
+            },
+            include: {
+                menu: true
+            }
+        })
+
+        sideDishOrdersWithMainDishes.push({
+            mainDish: mainDishOrder.mainDish,
+            sideDishes: sideDishOrders
+        })
+    }
+
+
+    // now we have dish order items for each main dish
+
+    const result = [];
+
+    for(const row of sideDishOrdersWithMainDishes) {
+        
+        const counts: any = {};
+
+        for(const item of row.sideDishes) {
+            const dishName = item.menu.name;
+            if(counts[dishName]) {
+                counts[dishName] += item.quantity;
+            } else {
+                counts[dishName] = item.quantity;
+            }
+        }
+
+        let maxName: string = "";
+        let maxCount: number = 0;
+
+        for(const dishName in counts) {
+            if(counts[dishName] > maxCount) {
+                maxCount = counts[dishName];
+                maxName = dishName;
+            }
+        }
+
+        result.push({
+            mainDish: row.mainDish,
+            mostPopularSideDish: {
+                name: maxName,
+                totalQuantity: maxCount
+            }
+        });
+
+        return result;
+
+    }
+    
+    }
+
 }
 
 export default PrismaReportRepository;
