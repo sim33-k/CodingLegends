@@ -1,5 +1,5 @@
 import { IReportRepository } from "repositories/interfaces/IReportRepository";
-import { database } from "lib/Database";
+import { database } from "../../lib/Database";
 
 // Daily sales revenue
 // Most famous main dish
