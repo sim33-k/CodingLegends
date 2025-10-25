@@ -5,12 +5,14 @@ import OrderPanel from '@/components/OrderPanel'
 const MenuOrder = () => {
   return (
     <div>
-      {/* <h1>Menu Order</h1>
-      <div>
-        Order div
-      </div> */}
-      <MenuPanel/>
-      <OrderPanel/>
+      <div className='flex flex-col lg:flex-row gap-6'>
+        <div className='lg:w-2/3 border border-red-500'>
+          <MenuPanel/>
+        </div>
+        <div className='lg:w-1/3 border bg-neutral-900 border-red-500'>
+          <OrderPanel/>
+        </div>
+      </div>
     </div>
   )
 }
