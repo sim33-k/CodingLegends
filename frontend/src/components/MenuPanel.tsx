@@ -14,6 +14,19 @@ const MenuPanel = () => {
     {id: 'dessert', name: 'Desserts'},
   ]
 
+  const menuItems = [
+  { id: 1, name: 'Rice', type: 'main', price: 'Rs. 100' },
+  { id: 2, name: 'Rotty', type: 'main', price: 'Rs. 20' },
+  { id: 3, name: 'Noodles', type: 'main', price: 'Rs. 150' },
+
+  { id: 4, name: 'Wadai', type: 'sides', price: 'Rs. 45' },
+  { id: 5, name: 'Dhal Curry', type: 'sides', price: 'Rs. 75' },
+  { id: 6, name: 'Fish Curry', type: 'sides', price: 'Rs. 120' },
+
+  { id: 7, name: 'Watalappam', type: 'desserts', price: 'Rs. 40' },
+  { id: 8, name: 'Jelly', type: 'desserts', price: 'Rs. 20' },
+  { id: 9, name: 'Pudding', type: 'desserts', price: 'Rs. 25' },
+];
 
   return (
     <div>
@@ -33,6 +46,19 @@ const MenuPanel = () => {
       </div>
       <div>
         <Input placeholder="Search items" />
+      </div>
+
+      {/* Item grids, might include images later */}
+
+      <div className="flex-1">
+        <div>
+          {menuItems.map(item => (
+            <div>
+              {item.name} - {item.price}
+            </div>
+          ))}
+        </div>
+
       </div>
       
     </div>
