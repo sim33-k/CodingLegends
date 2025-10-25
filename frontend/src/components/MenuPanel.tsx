@@ -8,7 +8,7 @@ const MenuPanel = () => {
         <h2 className="text-2xl font-semibold border-b border-border pb-2 mb-4">
             Menu Items
         </h2>
-      <div>
+      <div className='flex flex-wrap mb-1 gap-2'>
         <Button variant="outline" className="mb-4">
           All Items
         </Button>
