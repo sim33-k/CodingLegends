@@ -9,6 +9,11 @@ const MenuPanel = () => {
   const [currentCategory, setCurrentCategory] = useState('all');
   const [count, setCount] = useState(0);
 
+  // state for menu items which are fetched
+  const [menuItems, setMenuItems] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   const types = [
     {id: 'all', name: 'All Items'},
     {id: 'main', name: 'Main Dishes'},
@@ -16,19 +21,26 @@ const MenuPanel = () => {
     {id: 'dessert', name: 'Desserts'},
   ]
 
-  const menuItems = [
-  { id: 1, name: 'Rice', type: 'main', price: 'Rs. 100' },
-  { id: 2, name: 'Rotty', type: 'main', price: 'Rs. 20' },
-  { id: 3, name: 'Noodles', type: 'main', price: 'Rs. 150' },
+//   const menuItems = [
+//   { id: 1, name: 'Rice', type: 'main', price: 'Rs. 100' },
+//   { id: 2, name: 'Rotty', type: 'main', price: 'Rs. 20' },
+//   { id: 3, name: 'Noodles', type: 'main', price: 'Rs. 150' },
 
-  { id: 4, name: 'Wadai', type: 'sides', price: 'Rs. 45' },
-  { id: 5, name: 'Dhal Curry', type: 'sides', price: 'Rs. 75' },
-  { id: 6, name: 'Fish Curry', type: 'sides', price: 'Rs. 120' },
+//   { id: 4, name: 'Wadai', type: 'sides', price: 'Rs. 45' },
+//   { id: 5, name: 'Dhal Curry', type: 'sides', price: 'Rs. 75' },
+//   { id: 6, name: 'Fish Curry', type: 'sides', price: 'Rs. 120' },
 
-  { id: 7, name: 'Watalappam', type: 'desserts', price: 'Rs. 40' },
-  { id: 8, name: 'Jelly', type: 'desserts', price: 'Rs. 20' },
-  { id: 9, name: 'Pudding', type: 'desserts', price: 'Rs. 25' },
-];
+//   { id: 7, name: 'Watalappam', type: 'desserts', price: 'Rs. 40' },
+//   { id: 8, name: 'Jelly', type: 'desserts', price: 'Rs. 20' },
+//   { id: 9, name: 'Pudding', type: 'desserts', price: 'Rs. 25' },
+// ];
+
+// we have the endpoint http://localhost:3000/menu to fetch the actual menu items from the database
+
+useEffect(() => {
+  
+}, [])
+
 
   return (
     <div>
