@@ -13,12 +13,14 @@ function App() {
     <>
     <BrowserRouter>
       <Header />
-      <Routes>
-        <Layout>
-          <Route path="/" element={<Dashboard/>} />
-          <Route path="/menu" element={<MenuOrder />} />
-        </Layout>
-      </Routes>
+      <Layout>
+        <Routes>
+
+            <Route path="/" element={<Dashboard/>} />
+            <Route path="/menu" element={<MenuOrder />} />
+
+        </Routes>
+      </Layout>
     
     </BrowserRouter>
       
