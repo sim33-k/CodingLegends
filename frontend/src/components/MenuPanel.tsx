@@ -4,13 +4,29 @@ import { Button } from './ui/button'
 import { useEffect } from 'react'
 import ItemCard from './ItemCard'
 
+
+// i cannot pass the menuItem type to the ItemCard component, because of types
+
+type MenuType = {
+  id: number;
+  name: string;
+}
+
+type MenuItem = {
+  id: number,
+  name: string,
+  price: string,
+  typeId: number,
+  type: MenuItem
+}
+
 const MenuPanel = () => {
 
   const [currentCategory, setCurrentCategory] = useState('all');
   const [count, setCount] = useState(0);
 
   // state for menu items which are fetched
-  const [menuItems, setMenuItems] = useState([]);
+  const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const backendURL = import.meta.env.BACKEND_URL || `http://localhost:3000`;
@@ -95,7 +111,7 @@ const MenuPanel = () => {
       <div className="flex-1">
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
           {menuItems.map(item => (
-            <ItemCard onClick={() => setCount(count + 1)} key={item.id} item={item} />
+            <ItemCard onClick={() => setCount(count + 1)} key={item.id} item={item} type={item.type} />
           ))}
         </div>
 
