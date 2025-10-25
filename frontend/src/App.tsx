@@ -3,7 +3,7 @@ import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Header from './components/Header'
 import MenuOrder from './pages/MenuOrder'
-import Reports from './pages/Reports'
+import Dashboard from './pages/Dashboard'
 
 
 function App() {
@@ -13,8 +13,8 @@ function App() {
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="/" element={<MenuOrder />} />
-        <Route path="/reports" element={<Reports />} />
+        <Route path="/" element={<Dashboard/>} />
+        <Route path="/menu" element={<MenuOrder />} />
       </Routes>
     
     </BrowserRouter>
