@@ -7,6 +7,7 @@ import ItemCard from './ItemCard'
 const MenuPanel = () => {
 
   const [currentCategory, setCurrentCategory] = useState('all');
+  const [count, setCount] = useState(0);
 
   const types = [
     {id: 'all', name: 'All Items'},
@@ -32,7 +33,7 @@ const MenuPanel = () => {
   return (
     <div>
         <h2 className="text-2xl font-semibold border-b border-border pb-2 mb-4">
-            Menu Items
+            Menu Items {count}
         </h2>
       <div className='flex flex-wrap mb-3 gap-2'>
         {types.map(type => 
@@ -45,7 +46,7 @@ const MenuPanel = () => {
           </Button>
         )}
       </div>
-      <div>
+      <div className='mb-3'>
         <Input placeholder="Search items" />
       </div>
 
@@ -54,7 +55,7 @@ const MenuPanel = () => {
       <div className="flex-1">
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
           {menuItems.map(item => (
-            <ItemCard key={item.id} item={item} />
+            <ItemCard onClick={() => setCount(count + 1)} key={item.id} item={item} />
           ))}
         </div>
 
