@@ -12,7 +12,8 @@ const MenuPanel = () => {
   // state for menu items which are fetched
   const [menuItems, setMenuItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
+  const backendURL = import.meta.env.BACKEND_URL || `http://localhost:3000`;
 
   const types = [
     {id: 'all', name: 'All Items'},
@@ -37,9 +38,36 @@ const MenuPanel = () => {
 
 // we have the endpoint http://localhost:3000/menu to fetch the actual menu items from the database
 
-useEffect(() => {
-  
-}, [])
+  useEffect(() => {
+    const fetchItems = async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetch(`${backendURL}/menu`);
+        const result = await response.json();
+
+        // response returns the success state
+        if(result.success) {
+          setMenuItems(result.data); 
+          
+        } else {
+          setError(`Cannot load the items.`);
+        }
+      
+      } catch (error) {
+        console.error(error);
+        setError("Error: " + error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    fetchItems();
+    
+  }, [])
+
+  // menu Item fetching check
+  console.log("Backend URL is: " +  backendURL);
+  console.log(menuItems);
 
 
   return (
