@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { SectionCards } from '@/components/section-cards'
 import TableRoundedCornerDemo from '@/components/shadcn-studio/table/table-03';
+import { ChartAreaInteractive } from '@/components/chart-area-interactive';
 
 const Dashboard = () => {
 
@@ -73,8 +74,11 @@ const Dashboard = () => {
       <div className='@container/main py-4 md:py-6'>
         <SectionCards stats={stats} />
       </div>
-      <div className='@container/main py-4 md:py-6'>
-        <TableRoundedCornerDemo data={stats.sideDishCombinations} />
+      <div className='@container/main'>
+        <ChartAreaInteractive/>
+        <div className="mt-4">
+          <TableRoundedCornerDemo data={stats.sideDishCombinations} /> 
+        </div>
       </div>
     </>
   )
