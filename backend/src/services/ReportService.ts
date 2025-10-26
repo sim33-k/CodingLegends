@@ -1,6 +1,7 @@
 // I will not be extending the base service, because this service is specific to reports,
 
 import { IReportRepository } from "repositories/interfaces/IReportRepository";
+import { database } from "../lib/Database";
 
 // Daily sales revenue
 // Most famous main dish
@@ -28,15 +29,30 @@ export class ReportService {
     }
 
     public async getFamousMainDish(): Promise<any> {
-        return this.repository.getFamousMainDish();
+        const result = await this.repository.getFamousMainDish();
+        if (result.length > 0) {
+            const menuItem = await database.menuItem.findUnique({ where: { id: result[0].menuId } });
+            return { name: menuItem?.name, totalQuantity: result[0]._sum.quantity };
+        }
+        return null;
     }
 
     public async getFamousSideDish(): Promise<any> {
-        return this.repository.getFamousSideDish();
+        const result = await this.repository.getFamousSideDish();
+        if (result.length > 0) {
+            const menuItem = await database.menuItem.findUnique({ where: { id: result[0].menuId } });
+            return { name: menuItem?.name, totalQuantity: result[0]._sum.quantity };
+        }
+        return null;
     }
 
     public async getFamousDessert(): Promise<any> {
-        return this.repository.getFamousDessert();
+        const result = await this.repository.getFamousDessert();
+        if (result.length > 0) {
+            const menuItem = await database.menuItem.findUnique({ where: { id: result[0].menuId } });
+            return { name: menuItem?.name, totalQuantity: result[0]._sum.quantity };
+        }
+        return null;
     }
 
     public async getMostPopularSideDishForEachMainDish(): Promise<any> {
