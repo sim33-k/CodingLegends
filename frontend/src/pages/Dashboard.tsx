@@ -11,14 +11,29 @@ const Dashboard = () => {
   // Most Famous Dessert (it wasnt asked in the question)
 
   const [stats, setStats] = useState<{
-    dailySalesRevenue: number, 
-    famousMainDish: string, 
-    famousSideDish: string, 
-    famousDessert: string}>({
-      dailySalesRevenue: 0,
-      famousMainDish: '',
-      famousSideDish: '',
-      famousDessert: ''});
+    dailySalesRevenue: number,
+    famousMainDish: string,
+    famousSideDish: string,
+    famousDessert: string,
+    sideDishCombinations: Array<{
+      mainDish: {
+        id: number,
+        name: string,
+        price: number,
+        typeId: number
+      },
+      mostPopularSideDish: {
+        name: string,
+        totalQuantity: number
+      }
+    }>
+  }>({
+    dailySalesRevenue: 0,
+    famousMainDish: '',
+    famousSideDish: '',
+    famousDessert: '',
+    sideDishCombinations: []
+  });
 
   const backendURL = import.meta.env.BACKEND_URL || `http://localhost:3000`;
 
@@ -36,26 +51,30 @@ const Dashboard = () => {
       // {"success":true,"data":{"name":"Watalappam","totalQuantity":2}}
       const dessertResponse = await (await fetch(`${backendURL}/reports/famous-dessert`)).json();
 
+      const combResponse = await (await fetch(`${backendURL}/reports/side-dish-combinations`)).json();
+      console.log(combResponse);
+
       setStats({
         dailySalesRevenue: salesResponse.data._sum.total,
         famousMainDish: mainDishResponse.data.name,
         famousSideDish: sideDishResponse.data.name,
-        famousDessert: dessertResponse.data.name        
+        famousDessert: dessertResponse.data.name,
+        sideDishCombinations: combResponse.data
       })
 
     }
 
     response();
 
-  }, [] );
+  }, []);
 
   return (
     <>
       <div className='@container/main py-4 md:py-6'>
-        <SectionCards stats={stats}/>
+        <SectionCards stats={stats} />
       </div>
       <div className='@container/main py-4 md:py-6'>
-        <TableRoundedCornerDemo/>
+        <TableRoundedCornerDemo />
       </div>
     </>
   )
