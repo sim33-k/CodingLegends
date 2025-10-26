@@ -1,5 +1,3 @@
-import React from "react";
-import ItemCard from "./Order Panel/ItemCard";
 import type { OrderItem } from "@/types/Common";
 import ItemCardList from "./Order Panel/ItemCardList";
 import Summary from "./Order Panel/Summary";
@@ -8,9 +6,27 @@ interface OrderPanelProps {
   orderItem: OrderItem[];
   updateQuantity: (id: number, value: number) => void;
   removeFromOrder: (id: number) => void;
+  clearOrder: () => void;
 }
 
-const OrderPanel = ({orderItem, updateQuantity, removeFromOrder} : OrderPanelProps) => {
+const OrderPanel = ({orderItem, updateQuantity, removeFromOrder, clearOrder} : OrderPanelProps) => {
+
+  const getTotal = () => {
+    const total = orderItem.reduce((acc, item) => {
+      return acc + (parseFloat(item.price) * item.quantity);
+    }, 0)
+
+    return total;
+  }
+
+  // console.log(getTotal);
+
+  const createOrder = () => {
+    console.log("test ordr");
+  }
+
+
+
   return (
     <div className="flex flex-col h-full">
       <h2 className="text-2xl font-semibold border-b border-border pb-2 mb-4">
@@ -22,7 +38,7 @@ const OrderPanel = ({orderItem, updateQuantity, removeFromOrder} : OrderPanelPro
       </div>
 
       <div>
-        <Summary />
+        <Summary total={getTotal()} clearOrder={clearOrder} createOrder={createOrder} />
       </div>
     </div>
   );

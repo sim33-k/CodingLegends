@@ -1,9 +1,18 @@
-import React from 'react'
+import type { OrderItem } from '@/types/Common';
 
-const Summary = () => {
+interface SummaryProps {
+
+  createOrder: (orderItem: OrderItem[]) => void;
+  clearOrder: () => void;
+  total: number;
+}
+
+const Summary = ({total, createOrder, clearOrder} : SummaryProps) => {
+    console.log(total, createOrder, clearOrder);
+
   return (
     <div>
-      test
+      the total is {total}
     </div>
   )
 }
