@@ -36,7 +36,7 @@ const ItemCard = ({item, updateQuantity, removeFromOrder}) => {
                 </Button>
             </div>
             <div className='ml-auto font-medium'>
-                Rs. {item.price}
+                Rs. {item.price * item.quantity}
             </div>
 
         </div>
