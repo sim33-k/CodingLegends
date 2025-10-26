@@ -67,6 +67,7 @@ const MenuPanel = () => {
           
         } else {
           setError(`Cannot load the items.`);
+          setMenuItems([]);
         }
       
       } catch (error) {

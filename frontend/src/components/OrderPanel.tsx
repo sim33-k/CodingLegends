@@ -1,4 +1,5 @@
 import React from "react";
+import ItemCard from "./Order Panel/ItemCard";
 
 const OrderPanel = () => {
   return (
@@ -8,7 +9,7 @@ const OrderPanel = () => {
       </h2>
 
       <div>
-        order test
+        <ItemCard />
       </div>
     </div>
   );
