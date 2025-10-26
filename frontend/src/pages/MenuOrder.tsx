@@ -86,7 +86,7 @@ const MenuOrder = () => {
     if(alertState.show) {
       const timer = setTimeout(() => {
         setAlertState(prev => ({...prev, show: false}))
-      }, 1300);
+      }, 2000);
       // clean up
       return () => clearTimeout(timer);
     }
