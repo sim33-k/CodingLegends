@@ -7,9 +7,15 @@ interface OrderPanelProps {
   updateQuantity: (id: number, value: number) => void;
   removeFromOrder: (id: number) => void;
   clearOrder: () => void;
+  setAlertState: React.Dispatch<React.SetStateAction<{
+    show: boolean;
+    type: string;
+    message: string;
+    title: string;
+  }>>;
 }
 
-const OrderPanel = ({orderItem, updateQuantity, removeFromOrder, clearOrder} : OrderPanelProps) => {
+const OrderPanel = ({orderItem, updateQuantity, removeFromOrder, clearOrder, setAlertState }:OrderPanelProps) =>{
 
   const getTotal = () => {
     const total = orderItem.reduce((acc, item) => {
@@ -38,7 +44,7 @@ const OrderPanel = ({orderItem, updateQuantity, removeFromOrder, clearOrder} : O
       </div>
 
       <div>
-        <Summary total={getTotal()} clearOrder={clearOrder} createOrder={createOrder} />
+        <Summary total={getTotal()} clearOrder={clearOrder} createOrder={createOrder} itemCount={orderItem.length} setAlertState={setAlertState} />
       </div>
     </div>
   );

@@ -104,7 +104,7 @@ const MenuOrder = () => {
           <MenuPanel addToOrder={addToOrder}/>
         </div>
         <div className='lg:w-1/3 border border-border p-4 bg-background  rounded-lg'>
-          <OrderPanel orderItem={orderItem} updateQuantity={updateQuantity} removeFromOrder={removeFromOrder} clearOrder={clearOrder}/>
+          <OrderPanel orderItem={orderItem} updateQuantity={updateQuantity} removeFromOrder={removeFromOrder} clearOrder={clearOrder} setAlertState={setAlertState}/>
         </div>
       </div>
     </div>
