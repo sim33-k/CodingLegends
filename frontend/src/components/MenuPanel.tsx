@@ -12,6 +12,7 @@ interface MenuPanelProps {
 const MenuPanel = ({addToOrder} : MenuPanelProps) => {
 
   const [currentCategory, setCurrentCategory] = useState('all');
+  const [search, setSearch] = useState('');
 
   // state for menu items which are fetched
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
@@ -74,7 +75,14 @@ const MenuPanel = ({addToOrder} : MenuPanelProps) => {
   console.log("Backend URL is: " +  backendURL);
   console.log(menuItems);
 
-  const filteredMenuItems = currentCategory === 'all' ? menuItems : menuItems.filter(item => item.type.name.toLowerCase().includes(currentCategory));
+  let filtered = menuItems;
+  if (currentCategory !== 'all') {
+    filtered = filtered.filter(item => item.type.name.toLowerCase().includes(currentCategory));
+  }
+  if (search) {
+    filtered = filtered.filter(item => item.name.toLowerCase().includes(search.toLowerCase()));
+  }
+  const filteredMenuItems = filtered;
 
 
   return (
@@ -94,7 +102,7 @@ const MenuPanel = ({addToOrder} : MenuPanelProps) => {
         )}
       </div>
       <div className='mb-3'>
-        <Input placeholder="Search items" />
+        <Input placeholder="Search items" value={search} onChange={(e) => setSearch(e.target.value)} />
       </div>
 
       {/* Item grids, might include images later */}
