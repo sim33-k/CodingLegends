@@ -1,14 +1,14 @@
 import { Button } from '../ui/button';
+import { ConfirmOrderDialog } from './ConfirmOrderDialog';
 
 interface SummaryProps {
-
   createOrder: () => void;
   clearOrder: () => void;
   total: number;
+  itemCount: number;
 }
 
-const Summary = ({total, createOrder, clearOrder} : SummaryProps) => {
-    console.log(total, createOrder, clearOrder);
+const Summary = ({total, createOrder, clearOrder, itemCount} : SummaryProps) => {
 
   return (
     
@@ -26,12 +26,11 @@ const Summary = ({total, createOrder, clearOrder} : SummaryProps) => {
         >
           Clear Order
         </Button>
-        <Button 
-          onClick={createOrder} 
-          className="flex-1"
-        >
-          Create Order
-        </Button>
+        <ConfirmOrderDialog 
+          onConfirm={createOrder}
+          total={total}
+          itemCount={itemCount}
+        />
       </div>
     </div>
   )
