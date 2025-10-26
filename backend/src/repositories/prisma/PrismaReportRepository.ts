@@ -95,6 +95,29 @@ export class PrismaReportRepository implements IReportRepository {
 
     }
 
+    async getFamousDessert(): Promise<any> {
+        const result = await database.orderItem.groupBy({
+            by: ['menuId'],
+            where: {
+                menu: {
+                    type: {
+                        name: "Dessert"
+                    }
+                }
+            },
+            _sum: {
+                quantity: true,
+            },
+            orderBy: {
+                _sum: {quantity: 'desc'},
+
+            },
+            take: 1,
+        })
+        return result;
+
+    }
+
     async getMostPopularSideDishForEachMainDish(): Promise<any> {
 
     // so we need to get the main - side dish combinations first

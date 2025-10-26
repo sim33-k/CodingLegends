@@ -55,6 +55,15 @@ export class ReportController extends BaseController {
         }
     }
 
+    public async getFamousDessert(request: Request, response: Response): Promise<void> {
+        try {
+            const result = await this.reportService.getFamousDessert();
+            this.sendSuccess(response, result, 200);
+        } catch (error) {
+            return this.sendError(response,'error', 500);
+        }
+    }
+
     public async getMostPopularSideDishForEachMainDish(request: Request, response: Response): Promise<void> {
         try {
             const result = await this.reportService.getMostPopularSideDishForEachMainDish();

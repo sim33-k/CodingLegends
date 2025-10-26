@@ -35,6 +35,10 @@ export class ReportService {
         return this.repository.getFamousSideDish();
     }
 
+    public async getFamousDessert(): Promise<any> {
+        return this.repository.getFamousDessert();
+    }
+
     public async getMostPopularSideDishForEachMainDish(): Promise<any> {
         return this.repository.getMostPopularSideDishForEachMainDish();
     }
