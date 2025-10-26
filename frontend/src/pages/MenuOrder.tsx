@@ -30,15 +30,19 @@ const MenuOrder = () => {
   }
 
   const updateQuantity = (id: number, value: number) => {
-    setOrderItem(prev => (
-      prev.map(item => {
-        if(item.id === id) {
-          return {...item, quantity: value}
-        } else {
-          return item;
-        }
-      })
-    ))
+    if (value <= 0) {
+      removeFromOrder(id);
+    } else {
+      setOrderItem(prev => (
+        prev.map(item => {
+          if(item.id === id) {
+            return {...item, quantity: value}
+          } else {
+            return item;
+          }
+        })
+      ))
+    }
   }
 
   const removeFromOrder = (id: number) => {

@@ -5,9 +5,11 @@ import ItemCardList from "./Order Panel/ItemCardList";
 
 interface OrderPanelProps {
   orderItem: OrderItem[];
+  updateQuantity: (id: number, value: number) => void;
+  removeFromOrder: (id: number) => void;
 }
 
-const OrderPanel = ({orderItem, updateQuantity, removeFromOrder, clearOrder} : OrderPanelProps) => {
+const OrderPanel = ({orderItem, updateQuantity, removeFromOrder} : OrderPanelProps) => {
   return (
     <div>
       <h2 className="text-2xl font-semibold border-b border-border pb-2 mb-4">

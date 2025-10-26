@@ -13,7 +13,7 @@ const ItemCardList = ({ items, updateQuantity, removeFromOrder }: ItemCardListPr
   return (
     <div className='flex-1 overflow-y-auto space-y-3 mb-4'>
         {items.map(item => (
-            <div>
+            <div key={item.id}>
                 <ItemCard item={item} updateQuantity={updateQuantity} removeFromOrder={removeFromOrder}/>
             </div>
         ))}
