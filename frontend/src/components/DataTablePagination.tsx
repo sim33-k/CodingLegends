@@ -16,9 +16,17 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
+// added generics here, just like it was in the base component
+// followed the guide shown in shadcn documentation for Data Tabl
+interface DataTableProps<TData, TValue> {
+  columns: ColumnDef<TData, TValue>[],
+  data: TData[]
+}
 
-
-export default function DataTablePagination() {
+export default function DataTablePagination<TData, TValue>({
+  columns,
+  data,
+}:DataTableProps<TData,TValue>) {
   const table = useReactTable({
     data,
     columns,
