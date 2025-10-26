@@ -5,16 +5,15 @@ import { useState } from 'react'
 
 const MenuOrder = () => {
 
-  // we define the add to order method here and pass to the menu panel
+  const [orderItem, setOrderItem] = useState<OrderItem[]>([]);
+
   const addToOrder = (item: MenuItem) => {
-    const [orderItem, setOrderItem] = useState<OrderItem[]>([]);
+
     // this is like our cart page, therefore whenever we add new items, if it already exists,
     // we need to increment it
 
     setOrderItem(prev => {
-      const itemIndex = prev.findIndex(orderItem => {
-        item.id = orderItem.id
-      })
+      const itemIndex = prev.findIndex(orderItem => orderItem.id === item.id);
 
       // it will be -1 if it doesnt exist
       if(itemIndex > -1) {
@@ -38,7 +37,7 @@ const MenuOrder = () => {
           <MenuPanel addToOrder={addToOrder}/>
         </div>
         <div className='lg:w-1/3 border border-border p-4 bg-background  rounded-lg'>
-          <OrderPanel/>
+          <OrderPanel orderItem={orderItem}/>
         </div>
       </div>
     </div>
