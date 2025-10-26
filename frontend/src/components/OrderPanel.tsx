@@ -10,6 +10,7 @@ const OrderPanel = () => {
 
       <div>
         <ItemCard />
+        <ItemCard />
       </div>
     </div>
   );
