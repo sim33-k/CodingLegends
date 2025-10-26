@@ -26,6 +26,12 @@ const MenuOrder = () => {
     if(isMainDish) {
       // we need to check if there are any other main dishes in the order
       const mainDishCheck = orderItem.find(x => x.type.name == "Main Dish" && x.id === item.id);
+      
+      // if it exists, we need to issue and alert and not proceed further
+      if (mainDishCheck) {
+        setAlertState({show: true, type: 'error', title: 'Cannot add this main dish', message: 'Please order main dish of one type!'});
+        return;
+      }
     }
 
     // this is like our cart page, therefore whenever we add new items, if it already exists,
@@ -33,6 +39,10 @@ const MenuOrder = () => {
 
     setOrderItem(prev => {
       const itemIndex = prev.findIndex(orderItem => orderItem.id === item.id);
+
+      // showing the sucess alert
+
+      setAlertState({show: true, type: 'success', title: 'Added item successfully', message: `The item ${item.name} is added to the order!`});
 
       // it will be -1 if it doesnt exist
       if(itemIndex > -1) {
