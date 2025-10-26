@@ -15,51 +15,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-// Generate more data for pagination demo
-const generateData = (count: number): Payment[] => {
-  const statuses = ["pending", "processing", "success", "failed"] as const
-  const domains = ["example.com", "gmail.com", "yahoo.com", "hotmail.com"]
-  
-  return Array.from({ length: count }, (_, i) => ({
-    id: `payment-${i + 1}`,
-    amount: Math.floor(Math.random() * 1000) + 50,
-    status: statuses[Math.floor(Math.random() * statuses.length)],
-    email: `user${i + 1}@${domains[Math.floor(Math.random() * domains.length)]}`,
-  }))
-}
-const data: Payment[] = generateData(50)
-export type Payment = {
-  id: string
-  amount: number
-  status: "pending" | "processing" | "success" | "failed"
-  email: string
-}
-export const columns: ColumnDef<Payment>[] = [
-  {
-    accessorKey: "status",
-    header: "Status",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("status")}</div>
-    ),
-  },
-  {
-    accessorKey: "email",
-    header: "Email",
-    cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
-  },
-  {
-    accessorKey: "amount",
-    header: () => <div className="text-right">Amount</div>,
-    cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"))
-      const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(amount)
-      return <div className="text-right font-medium">{formatted}</div>
-    },
-  },
-]
+
+
+
 export default function DataTablePagination() {
   const table = useReactTable({
     data,
