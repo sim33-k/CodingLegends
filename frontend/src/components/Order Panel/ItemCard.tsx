@@ -1,12 +1,12 @@
 import { Button } from '../ui/button'
 import { Plus, Trash2, Minus } from 'lucide-react'
 
-const ItemCard = () => {
+const ItemCard = ({item}) => {
   return (
     <div className='border border-border rounded-lg p-3 bg-background'>
         <div className='flex justify-between items-start mb-2'>
             <div>
-                <h3 className="font-medium">Rice</h3>
+                <h3 className="font-medium">{item.name}</h3>
             </div>
             <div>
                 <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-destructive/10 hover:text-destructive">
@@ -29,7 +29,7 @@ const ItemCard = () => {
                 </Button>
             </div>
             <div className='ml-auto font-medium'>
-                Rs. 100
+                Rs. {item.price}
             </div>
 
         </div>

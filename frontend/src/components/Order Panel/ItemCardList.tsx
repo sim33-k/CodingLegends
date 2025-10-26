@@ -1,12 +1,13 @@
 import React from 'react'
 import type { MenuItem } from '@/types/Common'
+import ItemCard from './ItemCard'
 
 const ItemCardList = ({items} : {items: MenuItem[]}) => {
   return (
-    <div>
+    <div className='flex-1 overflow-y-auto space-y-3 mb-4'>
         {items.map(item => (
             <div>
-                {item.name}
+                <ItemCard item={item}/>
             </div>
         ))}
       
