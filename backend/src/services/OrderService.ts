@@ -73,4 +73,7 @@ export class OrderService extends BaseService<CreateOrderDto, Order> {
         return this.repository.createOrder(dto);
     }
 
+    public async getAll(): Promise<Order[]>{
+        return this.repository.getOrders();
+    }
 }
