@@ -237,6 +237,9 @@ export class PrismaReportRepository implements IReportRepository {
     async getSalesHistory(startDate: string,endDate: string): Promise<any> {
 
         // since its easier to do with sql ill do it now, will later replace this with prisma orm
+        // added the postgres function date_trunc to group by day
+        // also changed the < to less than next day
+        // because it wasnt showing current day orders
         const result = await database.$queryRaw`
             SELECT date_trunc('day', date) as date, SUM(total) as total FROM "Order" 
             WHERE date >= ${startDate}::timestamp 
