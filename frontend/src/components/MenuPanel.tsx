@@ -12,7 +12,6 @@ interface MenuPanelProps {
 const MenuPanel = ({addToOrder} : MenuPanelProps) => {
 
   const [currentCategory, setCurrentCategory] = useState('all');
-  const [count, setCount] = useState(0);
 
   // state for menu items which are fetched
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
@@ -79,7 +78,7 @@ const MenuPanel = ({addToOrder} : MenuPanelProps) => {
   return (
     <div>
         <h2 className="text-2xl font-semibold border-b border-border pb-2 mb-4">
-            Menu Items {count}
+            Menu Items
         </h2>
       <div className='flex flex-wrap mb-3 gap-2'>
         {types.map(type => 
