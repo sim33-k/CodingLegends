@@ -2,12 +2,31 @@ import MenuPanel from '@/components/MenuPanel'
 import OrderPanel from '@/components/OrderPanel'
 import type { MenuItem, OrderItem } from '@/types/Common'
 import { useState } from 'react'
+import { AlertComponent } from '@/components/AlertComponent'
 
 const MenuOrder = () => {
 
   const [orderItem, setOrderItem] = useState<OrderItem[]>([]);
+  const [alertState, setAlertState] = useState({show:true, type: 'success', message: 'test msg', title: 'simaak'});
+
 
   const addToOrder = (item: MenuItem) => {
+
+
+
+
+    // even though the backend implements the logic expected in the question
+    // it is better to avoid the mistakes to happen in the frontend in the first place
+    // so Ill be having checks to prevent unwanted behavior
+
+    // check 1: we need to restrict 2 different main dishes to be added because the 
+    // questions mentions 'a main dish', but the quantity can be many
+
+    const isMainDish = item.type.name = "Main Dish";
+    if(isMainDish) {
+      // we need to check if there are any other main dishes in the order
+      const mainDishCheck = orderItem.find(x => x.type.name == "Main Dish" && x.id === item.id);
+    }
 
     // this is like our cart page, therefore whenever we add new items, if it already exists,
     // we need to increment it
@@ -56,6 +75,10 @@ const MenuOrder = () => {
 
   return (
     <div>
+      {/* alert logic */}
+      <div>
+        {alertState.show ? <AlertComponent type={alertState.type} message={alertState.message} title={alertState.title}/> : null}
+      </div>
       <div className='flex flex-col lg:flex-row gap-6 min-h-[calc(100vh-8rem)]'>
         <div className='lg:w-2/3 border border-border p-4 bg-background  rounded-lg'>
           <MenuPanel addToOrder={addToOrder}/>
