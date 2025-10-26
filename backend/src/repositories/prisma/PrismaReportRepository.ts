@@ -238,11 +238,11 @@ export class PrismaReportRepository implements IReportRepository {
 
         // since its easier to do with sql ill do it now, will later replace this with prisma orm
         const result = await database.$queryRaw`
-            SELECT DATE(date) as date, SUM(total) as total FROM "Order" 
-            WHERE date <= ${endDate}::timestamp 
-            AND date >= ${startDate}::timestamp
-            GROUP BY DATE(date) 
-            ORDER BY DATE(date)
+            SELECT date_trunc('day', date) as date, SUM(total) as total FROM "Order" 
+            WHERE date >= ${startDate}::timestamp 
+            AND date < (${endDate}::timestamp + interval '1 day')
+            GROUP BY date_trunc('day', date) 
+            ORDER BY date_trunc('day', date)
         `;
         return result;
     }
