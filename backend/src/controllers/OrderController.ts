@@ -31,4 +31,13 @@ export class OrderController extends BaseController {
         }
     }
 
+    public async getAllOrders(request: Request, response: Response): Promise<void> {
+        try {
+            const result = await this.orderService.getAll();
+            this.sendSuccess(response, result, 200);
+        } catch (error) {
+            this.sendError(response, (error as Error).message, 500);
+        }
+    }
+
 }
