@@ -1,5 +1,7 @@
 import DataTablePagination from "@/components/DataTablePagination"
 import { type ColumnDef } from "@tanstack/react-table"
+import { useState } from "react"
+import { useEffect } from "react"
 // implementation of this data table is in the shadcn documentation
 
 type OrderItem = {
@@ -54,7 +56,29 @@ const columns: ColumnDef<Order>[] = [
   }
 ]
 
+
+
 const Orders = () => {
+
+
+  // now we need to fetch the actual data
+  const [orders, setOrders] = useState<Order[]>([])
+  useEffect(() => {
+    const getOrders = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/orders")
+        const result = await response.json()
+        if (result.success) {
+          setOrders(result.data)
+        }
+      } catch (error) {
+        console.error("Failed to fetch orders:", error)
+      }
+    }
+
+    getOrders()
+  },[])
+
   return (
     <>
       <DataTablePagination columns={columns} data={orders}/>
