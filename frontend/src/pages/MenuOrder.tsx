@@ -45,6 +45,10 @@ const MenuOrder = () => {
     setOrderItem(prev => prev.filter(item => item.id !== id));
   };
 
+  const clearOrder = () => {
+    setOrderItem([]);
+  };
+
 
   return (
     <div>
@@ -53,7 +57,7 @@ const MenuOrder = () => {
           <MenuPanel addToOrder={addToOrder}/>
         </div>
         <div className='lg:w-1/3 border border-border p-4 bg-background  rounded-lg'>
-          <OrderPanel orderItem={orderItem}/>
+          <OrderPanel orderItem={orderItem} updateQuantity={updateQuantity} removeFromOrder={removeFromOrder} clearOrder={clearOrder}/>
         </div>
       </div>
     </div>

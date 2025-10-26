@@ -7,7 +7,7 @@ interface OrderPanelProps {
   orderItem: OrderItem[];
 }
 
-const OrderPanel = ({orderItem} : OrderPanelProps) => {
+const OrderPanel = ({orderItem, updateQuantity, removeFromOrder, clearOrder} : OrderPanelProps) => {
   return (
     <div>
       <h2 className="text-2xl font-semibold border-b border-border pb-2 mb-4">
@@ -18,7 +18,7 @@ const OrderPanel = ({orderItem} : OrderPanelProps) => {
         {/* <ItemCard />
         <ItemCard /> */}
         {/* <ItemCardList orderItem={orderItem}/> */}
-        <ItemCardList items={orderItem} />
+        <ItemCardList items={orderItem} updateQuantity={updateQuantity} removeFromOrder={removeFromOrder} />
       </div>
     </div>
   );

@@ -1,7 +1,14 @@
 import { Button } from '../ui/button'
 import { Plus, Trash2, Minus } from 'lucide-react'
+import type { MenuItem } from '@/types/Common'
 
-const ItemCard = ({item}) => {
+interface ItemCardListProps {
+  items: MenuItem[];
+  updateQuantity: (id: number, value: number) => void;
+  removeFromOrder: (id: number) => void;
+}
+
+const ItemCard = ({item, updateQuantity, removeFromOrder}) => {
   return (
     <div className='border border-border rounded-lg p-3 bg-background'>
         <div className='flex justify-between items-start mb-2'>
@@ -10,22 +17,22 @@ const ItemCard = ({item}) => {
             </div>
             <div>
                 <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-destructive/10 hover:text-destructive">
-                    <Trash2 className="h-4 w-4" />
+                    <Trash2 onClick={removeFromOrder} className="h-4 w-4" />
                 </Button>
             </div>
         </div>
         <div className='flex items-center gap-2'>
             <div>
                 <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-destructive/10 hover:text-destructive">
-                    <Plus className="h-4 w-4" />
+                    <Plus onClick={() => updateQuantity(item.quantity + 1)} className="h-4 w-4" />
                 </Button>
             </div>
             <div className='w-12 text-center font-medium'>
-                0
+                {item.quantity}
             </div>
             <div>
                 <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-destructive/10 hover:text-destructive">
-                    <Minus className="h-4 w-4" />
+                    <Minus onClick={() => updateQuantity(item.quantity - 1)} className="h-4 w-4" />
                 </Button>
             </div>
             <div className='ml-auto font-medium'>

@@ -2,12 +2,19 @@ import React from 'react'
 import type { MenuItem } from '@/types/Common'
 import ItemCard from './ItemCard'
 
-const ItemCardList = ({items} : {items: MenuItem[]}) => {
+interface ItemCardListProps {
+  items: MenuItem[];
+  updateQuantity: (id: number, value: number) => void;
+  removeFromOrder: (id: number) => void;
+}
+
+
+const ItemCardList = ({ items, updateQuantity, removeFromOrder }: ItemCardListProps) => {
   return (
     <div className='flex-1 overflow-y-auto space-y-3 mb-4'>
         {items.map(item => (
             <div>
-                <ItemCard item={item}/>
+                <ItemCard item={item} updateQuantity={updateQuantity} removeFromOrder={removeFromOrder}/>
             </div>
         ))}
       
