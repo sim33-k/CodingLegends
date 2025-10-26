@@ -8,7 +8,7 @@ import { useEffect } from 'react'
 const MenuOrder = () => {
 
   const [orderItem, setOrderItem] = useState<OrderItem[]>([]);
-  const [alertState, setAlertState] = useState({show:true, type: 'success', message: 'test msg', title: 'simaak'});
+  const [alertState, setAlertState] = useState({show:false, type: 'success', message: 'test msg', title: 'simaak'});
 
 
   const addToOrder = (item: MenuItem) => {
