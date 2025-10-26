@@ -74,7 +74,7 @@ const Dashboard = () => {
         <SectionCards stats={stats} />
       </div>
       <div className='@container/main py-4 md:py-6'>
-        <TableRoundedCornerDemo />
+        <TableRoundedCornerDemo data={stats.sideDishCombinations} />
       </div>
     </>
   )
