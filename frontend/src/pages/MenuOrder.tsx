@@ -3,6 +3,7 @@ import OrderPanel from '@/components/OrderPanel'
 import type { MenuItem, OrderItem } from '@/types/Common'
 import { useState } from 'react'
 import { AlertComponent } from '@/components/AlertComponent'
+import { useEffect } from 'react'
 
 const MenuOrder = () => {
 
@@ -11,10 +12,6 @@ const MenuOrder = () => {
 
 
   const addToOrder = (item: MenuItem) => {
-
-
-
-
     // even though the backend implements the logic expected in the question
     // it is better to avoid the mistakes to happen in the frontend in the first place
     // so Ill be having checks to prevent unwanted behavior
@@ -25,11 +22,11 @@ const MenuOrder = () => {
     const isMainDish = item.type.name = "Main Dish";
     if(isMainDish) {
       // we need to check if there are any other main dishes in the order
-      const mainDishCheck = orderItem.find(x => x.type.name == "Main Dish");
+      const mainDishCheck = orderItem.find(x => x.type.name == "Main Dish" && x.id != item.id);
       
       // if it exists, we need to issue and alert and not proceed further
       if (mainDishCheck) {
-        setAlertState({show: true, type: 'error', title: 'Cannot add this main dish', message: 'Please order main dish of one type!'});
+        setAlertState({show: true, type: 'error', title: 'Cannot add this main dish', message: 'Please order main dish of the same type!'});
         return;
       }
     }
@@ -81,6 +78,19 @@ const MenuOrder = () => {
   const clearOrder = () => {
     setOrderItem([]);
   };
+
+
+  // clean up logic for the alert
+
+  useEffect(() => {
+    if(alertState.show) {
+      const timer = setTimeout(() => {
+        setAlertState(prev => ({...prev, show: false}))
+      }, 1300);
+      // clean up
+      return () => clearTimeout(timer);
+    }
+  })
 
 
   return (
