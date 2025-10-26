@@ -41,6 +41,10 @@ const MenuOrder = () => {
     ))
   }
 
+  const removeFromOrder = (id: number) => {
+    setOrderItem(prev => prev.filter(item => item.id !== id));
+  };
+
 
   return (
     <div>
