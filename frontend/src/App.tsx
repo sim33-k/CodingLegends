@@ -5,6 +5,7 @@ import Header from './components/Header'
 import MenuOrder from './pages/MenuOrder'
 import Dashboard from './pages/Dashboard'
 import Layout from './components/Layout'
+import Orders from './pages/Orders'
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
 
             <Route path="/" element={<Dashboard/>} />
             <Route path="/menu" element={<MenuOrder />} />
+            <Route path="/orders" element={<Orders />} />
 
         </Routes>
       </Layout>
