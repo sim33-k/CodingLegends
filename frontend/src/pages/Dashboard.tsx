@@ -50,7 +50,7 @@ const Dashboard = () => {
 
   return (
     <div className='@container/main py-4 md:py-6'>
-      <SectionCards/>
+      <SectionCards stats={stats}/>
     </div>
   )
 }
