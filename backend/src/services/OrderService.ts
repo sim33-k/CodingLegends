@@ -41,7 +41,7 @@ export class OrderService extends BaseService<CreateOrderDto, Order> {
             }
 
             if (menuItem.type.name === "Main Dish") {
-                mainDishCount += item.quantity;
+                mainDishCount += 1; 
             } else if (menuItem.type.name === "Side Dish") {
                 sideDishCount += item.quantity;
             } else if (menuItem.type.name === "Dessert") {
@@ -57,7 +57,7 @@ export class OrderService extends BaseService<CreateOrderDto, Order> {
 
         // question states only a main dish is allowed
         if(mainDishCount > 1) {
-            throw new Error("Only 1 dish allowed");
+            throw new Error("Only 1 main dish type allowed");
         }
 
         if(sideDishCount < 1) {

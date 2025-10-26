@@ -45,7 +45,8 @@ const OrderPanel = ({orderItem, updateQuantity, removeFromOrder, clearOrder, set
 
     try {
       const data = {
-        itemArray: orderItem.map(item => ({
+        // backend expects the data with item
+        items: orderItem.map(item => ({
           menuId: item.id,
           quantity: item.quantity
         }))
