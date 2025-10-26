@@ -228,9 +228,9 @@ export class PrismaReportRepository implements IReportRepository {
             }
         });
 
-        return result;
-
     }
+    
+    return result;
     
     }
 
