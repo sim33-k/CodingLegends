@@ -1,5 +1,5 @@
 import DataTablePagination from "@/components/DataTablePagination"
-
+import { type ColumnDef } from "@tanstack/react-table"
 // implementation of this data table is in the shadcn documentation
 
 type OrderItem = {
@@ -27,6 +27,32 @@ type Order = {
   OrderItem: OrderItem[]
 }
 
+
+// COLUMN defintion
+// we have the order id, the date, total amount, (we can add the number of items, ill add it later)
+// column definition just like in the documentation with the generics
+const columns: ColumnDef<Order>[] = [
+  {
+    accessorKey: "id",
+    header: "Order ID",
+  },
+  {
+    accessorKey: "date",
+    header: "Date",
+    cell: ({ row }) => {
+      const date = new Date(row.getValue("date"))
+      return <div>{date.toLocaleDateString()}</div>
+    },
+  },
+  {
+    accessorKey: "total",
+    header: () => <div className="text-right">Total</div>,
+    cell: ({ row }) => {
+      const total = parseFloat(row.getValue("total"))
+      return <div className="text-right font-medium">Rs. {total}</div>
+    },
+  }
+]
 
 const Orders = () => {
   return (
