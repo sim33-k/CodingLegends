@@ -18,7 +18,7 @@ const OrderPanel = ({orderItem} : OrderPanelProps) => {
         {/* <ItemCard />
         <ItemCard /> */}
         {/* <ItemCardList orderItem={orderItem}/> */}
-        {orderItem.map(item => item.name)}
+        <ItemCardList items={orderItem} />
       </div>
     </div>
   );
