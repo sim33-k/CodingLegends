@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { SectionCards } from '@/components/section-cards'
+import TableRoundedCornerDemo from '@/components/shadcn-studio/table/table-03';
 
 const Dashboard = () => {
 
@@ -49,9 +50,14 @@ const Dashboard = () => {
   }, [] );
 
   return (
-    <div className='@container/main py-4 md:py-6'>
-      <SectionCards stats={stats}/>
-    </div>
+    <>
+      <div className='@container/main py-4 md:py-6'>
+        <SectionCards stats={stats}/>
+      </div>
+      <div className='@container/main py-4 md:py-6'>
+        <TableRoundedCornerDemo/>
+      </div>
+    </>
   )
 }
 
