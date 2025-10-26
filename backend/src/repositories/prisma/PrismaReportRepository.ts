@@ -234,6 +234,19 @@ export class PrismaReportRepository implements IReportRepository {
     
     }
 
+    async getSalesHistory(startDate: string,endDate: string): Promise<any> {
+
+        // since its easier to do with sql ill do it now, will later replace this with prisma orm
+        const result = await database.$queryRaw`
+            SELECT DATE(date) as date, SUM(total) as total FROM "Order" 
+            WHERE date <= ${endDate}::timestamp 
+            AND date >= ${startDate}::timestamp
+            GROUP BY DATE(date) 
+            ORDER BY DATE(date)
+        `;
+        return result;
+    }
+
 }
 
 export default PrismaReportRepository;

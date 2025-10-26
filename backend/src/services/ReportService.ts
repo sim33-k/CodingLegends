@@ -58,4 +58,8 @@ export class ReportService {
     public async getMostPopularSideDishForEachMainDish(): Promise<any> {
         return this.repository.getMostPopularSideDishForEachMainDish();
     }
+
+    public async getSalesHistory(startDate: string, endDate: string): Promise<any> {
+        return this.repository.getSalesHistory(startDate, endDate);
+    }
 }

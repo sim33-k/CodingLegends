@@ -73,5 +73,14 @@ export class ReportController extends BaseController {
         }
     }
 
+    public async getSalesHistory(request: Request, response: Response): Promise<void> {
+        const { startDate, endDate } = request.query;
+        try {
+            const result = await this.reportService.getSalesHistory(startDate as string, endDate as string);
+            this.sendSuccess(response, result, 200);
+        } catch (error) {
+            return this.sendError(response, 'error', 500);
+        }
+    }
 
 }

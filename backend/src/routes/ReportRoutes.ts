@@ -15,4 +15,5 @@ router.get("/famous-main-dish", reportController.getFamousMainDish.bind(reportCo
 router.get("/famous-side-dish", reportController.getFamousSideDish.bind(reportController));
 router.get("/famous-dessert", reportController.getFamousDessert.bind(reportController));
 router.get("/side-dish-combinations", reportController.getMostPopularSideDishForEachMainDish.bind(reportController));
+router.get("/sales-history", reportController.getSalesHistory.bind(reportController));
 export default router;
