@@ -25,7 +25,7 @@ const MenuOrder = () => {
     const isMainDish = item.type.name = "Main Dish";
     if(isMainDish) {
       // we need to check if there are any other main dishes in the order
-      const mainDishCheck = orderItem.find(x => x.type.name == "Main Dish" && x.id === item.id);
+      const mainDishCheck = orderItem.find(x => x.type.name == "Main Dish");
       
       // if it exists, we need to issue and alert and not proceed further
       if (mainDishCheck) {
