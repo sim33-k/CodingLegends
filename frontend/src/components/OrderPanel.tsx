@@ -15,6 +15,8 @@ interface OrderPanelProps {
   }>>;
 }
 
+  const backendURL = import.meta.env.BACKEND_URL || `http://localhost:3000`;
+
 const OrderPanel = ({orderItem, updateQuantity, removeFromOrder, clearOrder, setAlertState }:OrderPanelProps) =>{
 
   const getTotal = () => {
@@ -27,8 +29,63 @@ const OrderPanel = ({orderItem, updateQuantity, removeFromOrder, clearOrder, set
 
   // console.log(getTotal);
 
-  const createOrder = () => {
-    console.log("test ordr");
+  const createOrder = async () => {
+    // console.log("test ordr");
+    // the backend endpoint is for localhost:3000/orders
+    // it expects the menu card id and the quantity
+    // the format we created is like this
+
+      // {
+      //   "menuId": 4,
+      //   "quantity": 1
+      // }
+
+    // so we have to map the data from the item object
+    // i made a mistake naming it as orderItem instead of orderItems
+
+    try {
+      const data = {
+        itemArray: orderItem.map(item => ({
+          menuId: item.id,
+          quantity: item.quantity
+        }))
+      }
+
+      // console.log(data);
+      const response = await fetch(`${backendURL}/orders`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+      });
+
+      if(response.ok) {
+        const result = await response.json();
+        console.log(result);
+
+        setAlertState({
+          show: true,
+          type: 'success',
+          message: 'Order created successfully!',
+          title: 'Order Created'
+        });
+
+        clearOrder();
+      } else {
+        // failed state we trigger the catch
+        throw new Error('Order not made!');
+      }
+
+    } catch(error) {
+      // console.error(error);
+      setAlertState({
+        show: true,
+        type: 'error',
+        message: 'Order not created, please try again later.',
+        title: 'Order Failed'
+      });
+    }
   }
 
 
