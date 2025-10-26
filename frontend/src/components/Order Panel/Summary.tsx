@@ -1,11 +1,13 @@
 import { Button } from '../ui/button';
 import { ConfirmOrderDialog } from './ConfirmOrderDialog';
+import type { OrderItem } from '@/types/Common';
 
 interface SummaryProps {
   createOrder: () => void;
   clearOrder: () => void;
   total: number;
   itemCount: number;
+  orderItem: OrderItem[];
   setAlertState: React.Dispatch<React.SetStateAction<{
     show: boolean;
     type: string;
@@ -14,16 +16,58 @@ interface SummaryProps {
   }>>;
 }
 
-const Summary = ({total, createOrder, clearOrder, itemCount, setAlertState }: SummaryProps) => {
+const Summary = ({total, createOrder, clearOrder, itemCount, setAlertState, orderItem}: SummaryProps) => {
 
-  const handleCreateOrderClick = () => {
+  const validateOrder = () => {
     if (itemCount === 0) {
       setAlertState({
         show: true,
         type: 'error',
-        message: 'Cannot create an empty order. Please add items first.',
+        message: 'Cannot create an empty order!',
         title: 'Empty Order'
       });
+      return false;
+    }
+
+    const hasMainDish = orderItem.some(item => item.type.name === "Main Dish");
+    const hasSideDish = orderItem.some(item => item.type.name === "Side Dish");
+
+    // we do not need checks for quantity because in the frotnend order item logic,
+    // item will be deleted from the array if the quantity becomes zero
+    // The questions asks for main dish of one type, quantity can be many
+
+    if (!hasMainDish) {
+      setAlertState({
+        show: true,
+        type: 'error',
+        message: 'Your order must include at least one main dish.',
+        title: 'Missing Main Dish'
+      });
+      return false;
+    }
+
+    // having a side dish of one type is enough because the question states one or more
+
+    if (!hasSideDish) {
+      setAlertState({
+        show: true,
+        type: 'error',
+        message: 'Your order must include at least one side dish.',
+        title: 'Missing Side Dish'
+      });
+      return false;
+    }
+
+    return true;
+  };
+
+  const handleCreateOrderClick = () => {
+    validateOrder();
+  };
+
+  const handleConfirmOrder = () => {
+    if (validateOrder()) {
+      createOrder();
     }
   };
 
@@ -52,7 +96,7 @@ const Summary = ({total, createOrder, clearOrder, itemCount, setAlertState }: Su
           </Button>
         ) : (
           <ConfirmOrderDialog
-            onConfirm={createOrder}
+            onConfirm={handleConfirmOrder}
             total={total}
             itemCount={itemCount}
           />

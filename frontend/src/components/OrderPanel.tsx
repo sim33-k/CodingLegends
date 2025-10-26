@@ -44,7 +44,7 @@ const OrderPanel = ({orderItem, updateQuantity, removeFromOrder, clearOrder, set
       </div>
 
       <div>
-        <Summary total={getTotal()} clearOrder={clearOrder} createOrder={createOrder} itemCount={orderItem.length} setAlertState={setAlertState} />
+        <Summary total={getTotal()} clearOrder={clearOrder} createOrder={createOrder} itemCount={orderItem.length} setAlertState={setAlertState} orderItem={orderItem} />
       </div>
     </div>
   );
