@@ -8,5 +8,7 @@ export interface IReportRepository {
     getDailySalesRevenue(date: String): Promise<any>;
     getFamousMainDish(): Promise<any>;
     getFamousSideDish(): Promise<any>;
+    getFamousDessert(): Promise<any>;
     getMostPopularSideDishForEachMainDish(): Promise<any>;
+    getSalesHistory(startDate: string,endDate: string): Promise<any>;
 }

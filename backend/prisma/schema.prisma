@@ -16,6 +16,8 @@ model Type {
   name String @unique @db.VarChar(20)
 
   MenuItem MenuItem[]
+
+  @@index([name])
 }
 
 // The actual menu items
@@ -29,6 +31,8 @@ model MenuItem {
 
   type      Type        @relation(fields: [typeId], references: [id])
   OrderItem OrderItem[]
+
+  @@index([typeId])
 }
 
 model Order {
@@ -37,6 +41,8 @@ model Order {
   total Decimal  @db.Decimal(10, 2)
 
   OrderItem OrderItem[]
+
+  @@index([date])
 }
 
 model OrderItem {

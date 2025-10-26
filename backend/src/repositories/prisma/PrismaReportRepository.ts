@@ -95,6 +95,29 @@ export class PrismaReportRepository implements IReportRepository {
 
     }
 
+    async getFamousDessert(): Promise<any> {
+        const result = await database.orderItem.groupBy({
+            by: ['menuId'],
+            where: {
+                menu: {
+                    type: {
+                        name: "Dessert"
+                    }
+                }
+            },
+            _sum: {
+                quantity: true,
+            },
+            orderBy: {
+                _sum: {quantity: 'desc'},
+
+            },
+            take: 1,
+        })
+        return result;
+
+    }
+
     async getMostPopularSideDishForEachMainDish(): Promise<any> {
 
     // so we need to get the main - side dish combinations first
@@ -205,10 +228,26 @@ export class PrismaReportRepository implements IReportRepository {
             }
         });
 
-        return result;
-
     }
     
+    return result;
+    
+    }
+
+    async getSalesHistory(startDate: string,endDate: string): Promise<any> {
+
+        // since its easier to do with sql ill do it now, will later replace this with prisma orm
+        // added the postgres function date_trunc to group by day
+        // also changed the < to less than next day
+        // because it wasnt showing current day orders
+        const result = await database.$queryRaw`
+            SELECT date_trunc('day', date) as date, SUM(total) as total FROM "Order" 
+            WHERE date >= ${startDate}::timestamp 
+            AND date < (${endDate}::timestamp + interval '1 day')
+            GROUP BY date_trunc('day', date) 
+            ORDER BY date_trunc('day', date)
+        `;
+        return result;
     }
 
 }
